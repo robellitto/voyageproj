@@ -27,6 +27,10 @@ const navLinks = [
     href: "/destinations",
   },
   {
+    name: "Hotels",
+    href: "/hotels",
+  },
+  {
     name: "About",
     href: "/about",
   },
@@ -37,8 +41,8 @@ export default function Navbar() {
   const pathName = usePathname()
 
   return (
-    <header className="w-full border-b border-gray-100 bg-white">
-      <nav className="mx-auto flex h-[76px] max-w-[1400px] items-center justify-between px-5 lg:px-8">
+    <header className="fixed top-0 z-1000 w-full bg-transparent">
+      <nav className="mx-auto flex h-19 max-w-350 items-center justify-between px-5 lg:px-8">
 
         {/* ==================== LOGO ==================== */}
         <Link

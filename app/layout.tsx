@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 
 
 
@@ -18,11 +19,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       
-      <body className="min-h-full flex flex-col">
+      <body className="relative min-h-full flex flex-col">
         
         <Navbar/>
         
           {children}
+
+        <Footer />
 
         
       </body>
