@@ -1,6 +1,5 @@
 // import Hero from "@/components/HomepageComponents/Hero";
 
-import { PopularDestinationsCardSlider } from "@/components/Slider";
 import InfiniteCardSlider from "@/components/Slider3";
 import Destinations from "./destinations/page";
 import DestinationsSlider from "@/components/Destinations";
