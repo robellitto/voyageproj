@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Link from "next/link";
 import {
   Search,
@@ -39,54 +39,71 @@ const navLinks = [
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathName = usePathname()
+  const [scrolled,setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      
+
+      setScrolled(window.scrollY > 1);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
 
   return (
-    <header className="fixed top-0 z-1000 w-full bg-transparent">
+    <header className={`sticky top-0 z-1000 w-full ${scrolled ? "bg-white shadow-sm" : "bg-transparent"} backdrop-blur-5xs`}>
       <nav className="mx-auto flex h-19 max-w-350 items-center justify-between px-5 lg:px-8">
 
-        {/* ==================== LOGO ==================== */}
-        <Link
-          href="/"
-          className="flex shrink-0 items-center gap-3"
-        >
-          {/* Replace this with your actual logo */}
-          <img 
-            src="/logo-light.png"
-            width={80}
-            height ={80}
-            />
+        <div className="flex gap-11">
 
-          <div className="hidden sm:block">
-            <div className="text-[22px] font-bold leading-none text-[#123C3D]">
-              Voyage <span className="text-orange-500">Ethiopia</span>
-            </div>
+          {/* ==================== LOGO ==================== */}
+          <Link
+            href="/"
+            className="flex items-center shrink-0  gap-3"
+          >
+            {/* Replace this with your actual logo */}
+            <img 
+              src="/logo-light.png"
+              width={70}
+              height ={70}
+              />
 
-            <div className="mt-1 text-[11px] tracking-wide text-gray-500">
-              Holidays • Travel • Memories
+            <div className="hidden sm:block">
+              <div className="text-[22px] font-bold leading-none text-[#123C3D]">
+                Voyage <span className="text-orange-500">Ethiopia</span>
+              </div>
+
+              <div className="mt-1 text-[11px] tracking-wide text-gray-500">
+                Holidays • Travel • Memories
+              </div>
             </div>
+          </Link>
+
+
+          {/* ==================== DESKTOP NAV ==================== */}
+          <div className="hidden items-center gap-9 lg:flex">
+            {navLinks.map((link, index) => {
+              const isActive = pathName === link.href;
+
+              return <Link
+                key={link.name}
+                href={link.href}
+                className={`relative flex h-[76px] items-center text-[14px]  ${
+                  isActive
+                    ? "font-semibold text-gray-900 after:absolute after:bottom-0 after:left-0 after:h-0.75 after:w-full after:bg-orange-500 after:content-['']"
+                    : "font-medium text-gray-700 transition-colors hover:text-gray-950"
+                }`}
+              >
+                {link.name}
+              </Link>
+            })}
           </div>
-        </Link>
 
-
-        {/* ==================== DESKTOP NAV ==================== */}
-        <div className="hidden items-center gap-9 lg:flex">
-          {navLinks.map((link, index) => {
-            const isActive = pathName === link.href;
-
-            return <Link
-              key={link.name}
-              href={link.href}
-              className={`relative flex h-[76px] items-center text-[14px] ${
-                isActive
-                  ? "font-semibold text-gray-900 after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-full after:bg-orange-500 after:content-['']"
-                  : "font-medium text-gray-700 transition-colors hover:text-gray-950"
-              }`}
-            >
-              {link.name}
-            </Link>
-          })}
         </div>
-
 
         {/* ==================== DESKTOP RIGHT SIDE ==================== */}
         <div className="hidden items-center gap-5 lg:flex">
@@ -169,20 +186,22 @@ export default function Navbar() {
         <div className="border-t border-gray-100 bg-white px-5 py-5 shadow-sm lg:hidden">
           <div className="flex flex-col gap-1">
 
-            {navLinks.map((link, index) => (
-              <Link
+            {navLinks.map((link, index) => {
+              const isActive = pathName === link.href;
+              
+              return (<Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`rounded-lg px-4 py-3 ${
-                  index === 0
+                  isActive
                     ? "bg-orange-50 font-semibold text-orange-600"
                     : "font-medium text-gray-700 hover:bg-gray-50"
                 }`}
               >
                 {link.name}
-              </Link>
-            ))}
+              </Link>)
+            })}
 
 
             {/* Divider */}
