@@ -77,7 +77,6 @@ export default function Navbar() {
             </Link>
           </div>
 
-
           {/* ==================== DESKTOP NAV ==================== */}
           <div className="hidden items-center gap-9 lg:flex">
             {navLinks.map((link, index) => {
