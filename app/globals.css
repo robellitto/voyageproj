@@ -104,11 +104,37 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+@utility scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@theme {
+  --color-button-light: #FD7922;
+  --color-text-main: #18545A;
+  --color-text-header: #fc640d;
+  --color-text-input: #9AB4BE;
+  --shadow-outline: 0 0 2px rgba(0, 0, 0, 0.3);
+  --breakpoint-xss: 340px;
+}
+
+@media(max-width:640px){
+  :root{
+    --nav-h: 4rem;
+  }
+}
+
 :root {
+
+  --nav-h: 4.5rem;
 
   --background: oklch(1 0 0);
 
-  --foreground: oklch(0.145 0 0);
+  --foreground: #18545A;
 
   --card: oklch(1 0 0);
 

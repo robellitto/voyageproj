@@ -4,6 +4,9 @@ import Navbar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { SpecificFilterContextProvider } from "@/contexts/SpecificFilter";
+import { SearchContextProvider } from "@/components/Experiences/SearchContext";
+import BottomBar from "@/components/BottomBar";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -21,12 +24,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       
       <body className="relative min-h-full flex flex-col">
-        
-        <Navbar/>
-        
-          {children}
+        <SearchContextProvider>
+          <SpecificFilterContextProvider>
+            <Navbar/>
+            
+              {children}
+            
 
-        <Footer />
+            
+            <BottomBar />
+            <Footer />
+            
+          </SpecificFilterContextProvider>
+        </SearchContextProvider>
 
         
       </body>
