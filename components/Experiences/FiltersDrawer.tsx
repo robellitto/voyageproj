@@ -6,13 +6,17 @@ import ExperienceFilter from "./ExperienceFilters";
 import { useSearchContext } from "./SearchContext";
 import React, { useState } from "react";
 import useOutsideClick from "@/hooks/useOutsideClick";
+import handleFilter from "@/handlers/handleFilter";
 
 
 export default function FiltersDrawer({className}:{className?:string}){
-    const {selected,setSelected,price,setPrice,setLikedCards,likedCards} = useSearchContext()
+    const {selected,setSelected,price,setPrice,language,setLanguage,setFilteredResult,destinations} = useSearchContext()
     const [open,setOpen] = useState<boolean>(false)
     const filterDrawerRef = React.useRef<HTMLDivElement>(null);
     const triggerRef = React.useRef<HTMLButtonElement>(null);
+
+    
+    
 
 
     useOutsideClick(filterDrawerRef, ()=>setOpen(false),triggerRef)
@@ -32,8 +36,15 @@ export default function FiltersDrawer({className}:{className?:string}){
                     </DrawerTitle>
                     <DrawerClose><X /></DrawerClose>
                 </DrawerHeader>
-                <ExperienceFilter selected={selected} price={price} setSelected={setSelected} setPrice={setPrice} className="overflow-auto"/>
-                
+                <ExperienceFilter selected={selected} price={price} setSelected={setSelected} setPrice={setPrice} language={language} setLanguage={setLanguage} className="overflow-auto"/>
+                <div className="flex justify-between px-3">
+                    <button className="flex gap-2 p-2 px-5 bg-text-header text-white justify-center rounded-sm"
+                        onClick={()=>{
+                            setOpen(false)
+                            handleFilter(destinations,setFilteredResult,selected,price)}} ><SlidersHorizontal /> Apply filter</button>
+                    <button className="underline" onClick={()=> {setFilteredResult(null); setOpen(false) }}>clear all</button>
+                </div>
+            
             </DrawerContent>
         </Drawer>
     )

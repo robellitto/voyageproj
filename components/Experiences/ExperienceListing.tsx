@@ -3,7 +3,7 @@
 import { ArrowRightIcon, Binoculars, Flower2, HandHeart, HandHeartIcon, Heart, Landmark, Leaf, MapPinIcon, Palette, PersonStanding, SlidersHorizontal, Star, Utensils } from "lucide-react";
 import ExperienceFilter from "./ExperienceFilters";
 import CardCarousel from "./CardCarousel";
-import destinations from "./mockup.json"
+
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchContext } from "./SearchContext";
@@ -11,6 +11,7 @@ import DestinationCards from "./DestinationCards";
 import Fuse from "fuse.js";
 import { useSpecificFilter } from "@/contexts/SpecificFilter";
 import FiltersDrawer from "./FiltersDrawer";
+import handleFilter from "@/handlers/handleFilter";
 
 
 const categories = [
@@ -99,13 +100,17 @@ const categories = [
 
 
 export default function ExperienceListing(){
-    const {selected,setSelected,price,setPrice, likedCards, setLikedCards , search, setSearch} = useSearchContext()
+    const {selected,setSelected,price,setPrice, search, setSearch, language, setLanguage,setFilteredResult,filteredResults,destinations} = useSearchContext()
     const {setSpecificFilter}= useSpecificFilter()
 
     useEffect(()=>{
         setSpecificFilter(<FiltersDrawer className="min-[1000px]:hidden"/>)
         return () => {setSpecificFilter(null)}
     },[])
+    useEffect(()=>{
+      console.log(filteredResults)
+    },[filteredResults])
+
  
 
     return (
@@ -117,18 +122,21 @@ export default function ExperienceListing(){
                  
                  <div className="flex justify-between ">
                     <span className="flex gap-2 font-bold text-sm items-center"><SlidersHorizontal /> Filters </span>
-                    <button className="text-xs text-gray-700">Clear all</button>
+                    <button className="text-xs text-gray-700" onClick={()=> setFilteredResult(null) }>Clear all</button>
                  </div>   
 
-                 <ExperienceFilter selected={selected} setSelected={setSelected } price={price} setPrice={setPrice} className="overflow-auto pl-2"/>
+                 <ExperienceFilter selected={selected} setSelected={setSelected } price={price} setPrice={setPrice} language={language} setLanguage={setLanguage} className="overflow-auto pl-2"/>
                  
-                 <button className="flex gap-2 p-2 bg-text-header text-white justify-center mt-auto rounded-sm"><SlidersHorizontal /> Apply filter</button>
+                 <button className="flex gap-2 p-2 bg-text-header text-white justify-center mt-auto rounded-sm"
+                          onClick={()=>handleFilter(destinations,setFilteredResult,selected,price)}><SlidersHorizontal /> Apply filter</button>
             </div>
             
             <div className="flex-1 min-w-0 p-3 flex flex-col gap-5 items-stretch" >
                 {   
+                  !filteredResults
+                    ?
 
-                    selected === "all" ?
+                    selected === "all" || !selected ?
                         
                     categories.map(category =>(
                     <div className="flex flex-col" key={category.id}>
@@ -148,11 +156,19 @@ export default function ExperienceListing(){
                     )
                 )
                 :
-                <div className="grid  grid-cols-[repeat(auto-fit,minmax(min(100%,250px),1fr))] gap-4 justify-around">
+                <div className="flex flex-wrap gap-3 max-[570px]:flex-col items-center">
                     {
-                        <DestinationCards destinations={filteredDestinations}/>
+                        <DestinationCards destinations={destinations.filter((destination)=> destination.categories.includes(selected))}/>
                     }
                 </div>
+
+                :
+                <div className="flex flex-wrap gap-3  max-[570px]:flex-nowrap max-[570px]:flex-col   justify-around items-center ">
+                    {
+                        <DestinationCards destinations={filteredResults}/>
+                    }
+                </div>
+                
             }
 
             </div>

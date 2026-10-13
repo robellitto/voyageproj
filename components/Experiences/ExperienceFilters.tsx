@@ -20,6 +20,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "..
 import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
 import { useState } from "react";
 import { Slider } from "../ui/slider";
+import { Select, SelectContent, SelectValue,SelectTrigger, SelectItem } from "../ui/select";
 
 type ExperienceFilterProps = {
     className?: string;
@@ -27,6 +28,8 @@ type ExperienceFilterProps = {
     price: number[];
     setSelected: (selected:string) => void;
     setPrice: (price: number[]) => void;
+    language: string | null;
+    setLanguage: (language: string | null)=>void;
 }
 
 type ExperienceCategory = {
@@ -97,7 +100,7 @@ export const experienceCategories: ExperienceCategory[] = [
 
 
 
-export default function ExperienceFilter( {className, selected, setSelected, price, setPrice}: ExperienceFilterProps){
+export default function ExperienceFilter( {className, selected, setSelected, price, setPrice, language, setLanguage}: ExperienceFilterProps){
     
 
     return (
@@ -159,9 +162,9 @@ export default function ExperienceFilter( {className, selected, setSelected, pri
                         value={price}
                         defaultValue={price}
                         onValueChange={(value) => setPrice(value as unknown as number[])}
-                        min={5000}
+                        min={0}
                         max={50000}
-                        step={5000}
+                        step={1000}
                         className={`cursor-pointer **:data-[slot=slider-range]:bg-orange-400 
                                     **:data-[slot=slider-thumb]:size-5
                                     **:data-[slot=slider-thumb]:bg-orange-400
@@ -192,7 +195,18 @@ export default function ExperienceFilter( {className, selected, setSelected, pri
                 <AccordionTrigger className="font-semibold flex gap-2">
                     <Globe className="w-4 h-auto" /> <span>Language</span>
                 </AccordionTrigger>
-                <AccordionContent>English</AccordionContent>
+                <AccordionContent>
+                     <Select value={language} onValueChange={setLanguage}>
+                        <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select language" />
+                        </SelectTrigger>
+
+                        <SelectContent>
+                            <SelectItem className={"text-text-main cursor-pointer"} value="english">English</SelectItem>
+                            <SelectItem className={"text-text-main cursor-pointer"} value="amharic">አማርኛ (Amharic)</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </AccordionContent>
             </AccordionItem>
 
 

@@ -28,8 +28,8 @@ export default function DestinationCards({destinations}:Destinations){
 
     return (
         destinations.map(destination => (
-        <Card key={destination.id} className="w-60 max-sm:w-45 shrink-0 pt-0">
-            <div className="relative  w-full h-40 max-sm:h-30 ">
+        <Card key={destination.id} className="w-60  shrink-0 pt-0 max-[570px]:w-full  ">
+            <div className="relative w-full h-40 max-sm:h-40 ">
                 <Image 
                     fill
                     src={destination.imageUrl}
