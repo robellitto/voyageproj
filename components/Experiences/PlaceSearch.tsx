@@ -65,7 +65,7 @@ export default function ExperienceSearch(){
             <SearchBar2 className={`rounded-xl ${fillSearchError && !search ? `border-2 border-red-500 ` : "border-none"} shadow-outline`} />
             
             <DateRangeDrawer selected={dateRange} appliedDate={appliedDateRange} onSelect={setDateRange}  onApply={() => setAppliedDateRange(dateRange)}
-                             className={` flex-1 max-sm:shadow-none shadow-outline rounded-xl text-text-main max-[960px]:py-3 shadow-outline
+                             className={` flex-1 rounded-xl text-text-main max-[960px]:py-3 shadow-outline
                                 
                                 ${fillDateError && !appliedDateRange ? `border-2 border-red-500 ` : "border-none"}`}/>
             

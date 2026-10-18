@@ -105,7 +105,7 @@ export function SearchBar2({className}:{className?: string | null}){
 
     return (
         <div ref={containerRef} className="flex-2 relative">
-            <div className={`${className} text-text-main flex items-center gap-2  max-sm:shadow-none shadow-outline p-3 sm:rounded-xl `}>
+            <div className={`${className} text-text-main flex items-center gap-2 shadow-outline p-3 sm:rounded-xl `}>
                 <MapPinIcon className="w-3.5 h-auto shrink-0"/>
                 <input className={`outline-0 border-0 placeholder-text-main placeholder:font-light text-sm flex-1 
                                         w-full`} 
