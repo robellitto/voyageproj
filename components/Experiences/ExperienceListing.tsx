@@ -130,10 +130,8 @@ export default function ExperienceListing(){
         ? fuse.search(query).map((item) => item.item)
         : [];
       
-      
-      
       setSearchResults(results);
-      results.length && setSpecificFilter(null)
+      query && setSpecificFilter(null)
       
     }, [query]);
     
@@ -160,7 +158,7 @@ export default function ExperienceListing(){
             
             <div className="flex-1 min-w-0 p-3 flex flex-col gap-5 items-stretch" >
                   {
-                    !searchResults.length ?  
+                    !searchResults.length && !query ?  
                     
                       !filteredResults
                         ?

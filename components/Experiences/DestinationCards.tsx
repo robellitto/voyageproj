@@ -42,7 +42,7 @@ export default function DestinationCards({destinations,className}:Destinations){
                 />
                 <Heart 
                     size={30}
-                    fill={likedCards.includes(destination.id) ? "orange":"none"}
+                    fill={likedCards.includes(destination.id) ? "red":"none"}
                     onClick={()=>{
                         if (likedCards.includes(destination.id)){
                             setLikedCards((cards)=>cards.filter(card=>card != destination.id))
@@ -81,8 +81,10 @@ export default function DestinationCards({destinations,className}:Destinations){
         </Card>
         ))
         :
-        <div className="w-full flex justify-center h-[90dvh] items-center max-[1000px]:w-fit max-[1000px]:h-fit">
-            <h1 className="text-5xl opacity-75 font-bold m-0">No Experience Found</h1>
-        </div>
+        
+            <div className="absolute w-full flex justify-center h-[90dvh] items-center max-[1000px]:h-fit">
+                <h1 className="text-5xl opacity-75 font-bold m-0 max-[1000px]:text-3xl">No Experience Found</h1>
+            </div>
+        
     )
 }
