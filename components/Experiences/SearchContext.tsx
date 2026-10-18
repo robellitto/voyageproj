@@ -37,7 +37,8 @@ type SearchContextType = {
   setGuest: (guest : string | number | null) => void;
   room: string  | number | null;
   setRoom: (room: string | number | null) => void;
-  
+  searchResults: Destination[];
+  setSearchResults: (searchResult: Destination[]) => void;
 
 
   destinations : Destination[];
@@ -65,6 +66,7 @@ export function SearchContextProvider({
     const [appliedDateRange, setAppliedDateRange] = useState<DateRange | undefined>();
     const [guest,setGuest] = useState<string|number|null>(1)
     const [room, setRoom] = useState<string|number|null>(1)
+    const [searchResults,setSearchResults] = useState<Destination[]>([])
     
 
   return (
@@ -79,6 +81,7 @@ export function SearchContextProvider({
                 appliedDateRange,setAppliedDateRange,
                 guest,setGuest,
                 room,setRoom,
+                searchResults,setSearchResults,
                 destinations}}
     >
       {children}

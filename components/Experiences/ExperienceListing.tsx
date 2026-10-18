@@ -102,16 +102,19 @@ const categories = [
 
 
 export default function ExperienceListing(){
-    const {selected,setSelected,price,setPrice, search, setSearch, language, setLanguage,setFilteredResult,filteredResults,destinations} = useSearchContext()
+    const { selected,setSelected,
+            price,setPrice, 
+            search, setSearch, 
+            language, setLanguage,
+            setFilteredResult,filteredResults,
+            searchResults,setSearchResults,
+            destinations} = useSearchContext()
     const {setSpecificFilter}= useSpecificFilter()
     const fuse = new Fuse(destinations, {
             threshold: 0.45,
             keys: ["name","region"]
           });
-    const [searchResults,setSearchResults] = useState<Destination[]>([])
     
-    
-
   
     useEffect(()=>{
         setSpecificFilter(<FiltersDrawer className="min-[1000px]:hidden"/>)
@@ -138,20 +141,22 @@ export default function ExperienceListing(){
     return (
         
         <div className="flex items-start  gap-5">
+            {
+              !searchResults.length &&
+              (<div className={`w-75 flex gap-2 flex-col  p-3 shadow-outline max-[1000px]:hidden
+                              sticky top-(--nav-h) h-[calc(100dvh-var(--nav-h))]  `}>
+                  
+                  <div className="flex justify-between ">
+                      <span className="flex gap-2 font-bold text-sm items-center"><SlidersHorizontal /> Filters </span>
+                      <button className="text-xs text-gray-700" onClick={()=> setFilteredResult(null) }>Clear all</button>
+                  </div>   
 
-            <div className={`w-75 flex gap-2 flex-col  p-3 shadow-outline max-[1000px]:hidden
-                            sticky top-(--nav-h) h-[calc(100dvh-var(--nav-h))]  `}>
-                 
-                 <div className="flex justify-between ">
-                    <span className="flex gap-2 font-bold text-sm items-center"><SlidersHorizontal /> Filters </span>
-                    <button className="text-xs text-gray-700" onClick={()=> setFilteredResult(null) }>Clear all</button>
-                 </div>   
-
-                 <ExperienceFilter selected={selected} setSelected={setSelected } price={price} setPrice={setPrice} language={language} setLanguage={setLanguage} className="overflow-auto pl-2"/>
-                 
-                 <button className="flex gap-2 p-2 bg-text-header text-white justify-center mt-auto rounded-sm"
-                          onClick={()=>handleFilter(destinations,setFilteredResult,selected,price)}><SlidersHorizontal /> Apply filter</button>
-            </div>
+                  <ExperienceFilter selected={selected} setSelected={setSelected } price={price} setPrice={setPrice} language={language} setLanguage={setLanguage} className="overflow-auto pl-2"/>
+                  
+                  <button className="flex gap-2 p-2 bg-text-header text-white justify-center mt-auto rounded-sm"
+                            onClick={()=>handleFilter(destinations,setFilteredResult,selected,price)}><SlidersHorizontal /> Apply filter</button>
+              </div>)
+            }
             
             <div className="flex-1 min-w-0 p-3 flex flex-col gap-5 items-stretch" >
                   {
