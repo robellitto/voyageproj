@@ -6,12 +6,12 @@ export default function handleFilter(destinations: Destination[],
                                     category:string, 
                                     price: number[], 
                                     language?:string){
-    console.log(category)
+    
     setResult(destinations.filter(destination => category==="all" || destination.categories.includes(category))
                           .filter(destination => {
-                            console.log(price.length ==2 ? destination.price >= price[0] && destination.price <= price[1] : true)
+                           
                             
-                            return price.length ==2 ? destination.price >= price[0] && destination.price <= price[1] : true}))
+    return price.length ==2 ? destination.price >= price[0] && destination.price <= price[1] : true}))
     
     
 

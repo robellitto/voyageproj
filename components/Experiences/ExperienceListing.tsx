@@ -6,12 +6,14 @@ import CardCarousel from "./CardCarousel";
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useSearchContext } from "./SearchContext";
+import { Destination, useSearchContext } from "./SearchContext";
 import DestinationCards from "./DestinationCards";
 import Fuse from "fuse.js";
 import { useSpecificFilter } from "@/contexts/SpecificFilter";
 import FiltersDrawer from "./FiltersDrawer";
 import handleFilter from "@/handlers/handleFilter";
+import { useRouter, useSearchParams } from "next/navigation";
+import { resetNavigationLockToPending } from "next/dist/client/components/segment-cache/navigation-testing-lock";
 
 
 const categories = [
@@ -102,16 +104,36 @@ const categories = [
 export default function ExperienceListing(){
     const {selected,setSelected,price,setPrice, search, setSearch, language, setLanguage,setFilteredResult,filteredResults,destinations} = useSearchContext()
     const {setSpecificFilter}= useSpecificFilter()
+    const fuse = new Fuse(destinations, {
+            threshold: 0.45,
+            keys: ["name","region"]
+          });
+    const [searchResults,setSearchResults] = useState<Destination[]>([])
+    
+    
 
+  
     useEffect(()=>{
         setSpecificFilter(<FiltersDrawer className="min-[1000px]:hidden"/>)
+        
         return () => {setSpecificFilter(null)}
     },[])
-    useEffect(()=>{
-      console.log(filteredResults)
-    },[filteredResults])
 
- 
+    const searchParams = useSearchParams();
+    const query = searchParams.get("place");
+
+    useEffect(() => {
+      const results = query
+        ? fuse.search(query).map((item) => item.item)
+        : [];
+      
+      
+      
+      setSearchResults(results);
+      results.length && setSpecificFilter(null)
+      
+    }, [query]);
+    
 
     return (
         
@@ -132,43 +154,53 @@ export default function ExperienceListing(){
             </div>
             
             <div className="flex-1 min-w-0 p-3 flex flex-col gap-5 items-stretch" >
-                {   
-                  !filteredResults
-                    ?
+                  {
+                    !searchResults.length ?  
+                    
+                      !filteredResults
+                        ?
 
-                    selected === "all" || !selected ?
-                        
-                    categories.map(category =>(
-                    <div className="flex flex-col" key={category.id}>
-                        <div className="flex justify-between p-2">
-                            <div className="flex gap-3">
-                                {category.icon}
-                                <span className="font-bold">{category.name}</span></div>
-                            <Link href={category.href} className="text-text-header flex gap-1">See all<ArrowRightIcon /></Link>
-                        </div>
-                        <CardCarousel className="gap-2" page={category.href}>
+                        selected === "all" || !selected ?
+                            
+                        categories.map(category =>(
+                          <div className="flex flex-col" key={category.id}>
+                              <div className="flex justify-between p-2">
+                                  <div className="flex gap-3">
+                                      {category.icon}
+                                      <span className="font-bold">{category.name}</span></div>
+                                  <Link href={category.href} className="text-text-header flex gap-1">See all<ArrowRightIcon /></Link>
+                              </div>
+                              <CardCarousel className="gap-2" page={category.href}>
+                                  {
+                                      <DestinationCards 
+                                          destinations={destinations.filter(destination => destination.categories.includes(category.id)).slice(0,6)} 
+                                          className="max-[570px]:w-45"/>
+                                  }
+                              </CardCarousel>
+                          </div>
+                          )
+                        )
+                        :
+                        <div className="responsive-grid">
                             {
-                                <DestinationCards 
-                                    destinations={destinations.filter(destination => destination.categories.includes(category.id)).slice(0,6)} />
+                                <DestinationCards destinations={destinations.filter((destination)=> destination.categories.includes(selected))}
+                                className="w-full min-w-60"/>
                             }
-                        </CardCarousel>
-                    </div>
-                    )
-                )
-                :
-                <div className="flex flex-wrap gap-3 max-[570px]:flex-col items-center">
-                    {
-                        <DestinationCards destinations={destinations.filter((destination)=> destination.categories.includes(selected))}/>
-                    }
-                </div>
+                        </div>
 
-                :
-                <div className="flex flex-wrap gap-3  max-[570px]:flex-nowrap max-[570px]:flex-col   justify-around items-center ">
-                    {
-                        <DestinationCards destinations={filteredResults}/>
-                    }
-                </div>
-                
+                      :
+                      <div className="responsive-grid">
+                          {
+                              <DestinationCards destinations={filteredResults} className="w-full min-w-60"/>
+                          }
+                      </div>
+                  :
+                  <div className="responsive-grid">
+                          {
+                              <DestinationCards destinations={searchResults} className="w-full min-w-60"/>
+                          }
+                  </div>
+                    
             }
 
             </div>

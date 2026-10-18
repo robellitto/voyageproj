@@ -112,7 +112,7 @@
   {
     "id": "awash-national-park",
     "name": "Awash National Park",
-    "region": "Afar/Oromia",
+    "region": "Afar",
     "imageUrl": "https://picsum.photos/seed/htm-destination-awash-national-park/1000/640",
     "experienceCount": 4,
     "categories": ["wildlife-safari", "adventure"],
@@ -393,6 +393,127 @@
     "categories": ["cultural-heritage", "arts-crafts"],
     "rating": 4.5,
     "reviewCount": 1545,
+    "price": 3000
+  },
+  {
+    "id": "bishoftu",
+    "name": "Bishoftu",
+    "region": "Oromia",
+    "imageUrl": "https://picsum.photos/seed/htm-destination-bishoftu/1000/640",
+    "experienceCount": 3,
+    "categories": ["nature-outdoor", "wellness-relaxation"],
+    "rating": 4.6,
+    "reviewCount": 1650,
+    "price": 3200
+  },
+  {
+    "id": "debre-birhan",
+    "name": "Debre Birhan",
+    "region": "Amhara",
+    "imageUrl": "https://picsum.photos/seed/htm-destination-debre-birhan/1000/640",
+    "experienceCount": 2,
+    "categories": ["nature-outdoor", "cultural-heritage"],
+    "rating": 4.5,
+    "reviewCount": 1580,
+    "price": 2800
+  },
+  {
+    "id": "dallol",
+    "name": "Dallol",
+    "region": "Afar",
+    "imageUrl": "https://picsum.photos/seed/htm-destination-dallol/1000/640",
+    "experienceCount": 2,
+    "categories": ["nature-outdoor", "adventure"],
+    "rating": 4.6,
+    "reviewCount": 1590,
+    "price": 7800
+  },
+  {
+    "id": "semien",
+    "name": "Semera",
+    "region": "Afar",
+    "imageUrl": "https://picsum.photos/seed/htm-destination-semera/1000/640",
+    "experienceCount": 1,
+    "categories": ["adventure", "nature-outdoor"],
+    "rating": 4.3,
+    "reviewCount": 1540,
+    "price": 4000
+  },
+  {
+    "id": "jinka",
+    "name": "Jinka",
+    "region": "South Ethiopia",
+    "imageUrl": "https://picsum.photos/seed/htm-destination-jinka/1000/640",
+    "experienceCount": 2,
+    "categories": ["cultural-heritage", "community-volunteering"],
+    "rating": 4.5,
+    "reviewCount": 1620,
+    "price": 4500
+  },
+  {
+    "id": "turmi",
+    "name": "Turmi",
+    "region": "South Ethiopia",
+    "imageUrl": "https://picsum.photos/seed/htm-destination-turmi/1000/640",
+    "experienceCount": 2,
+    "categories": ["cultural-heritage", "community-volunteering"],
+    "rating": 4.4,
+    "reviewCount": 1560,
+    "price": 4800
+  },
+  {
+    "id": "mago-national-park",
+    "name": "Mago National Park",
+    "region": "South Ethiopia",
+    "imageUrl": "https://picsum.photos/seed/htm-destination-mago-national-park/1000/640",
+    "experienceCount": 2,
+    "categories": ["wildlife-safari", "nature-outdoor"],
+    "rating": 4.5,
+    "reviewCount": 1600,
+    "price": 7000
+  },
+  {
+    "id": "yabelo",
+    "name": "Yabelo",
+    "region": "Oromia",
+    "imageUrl": "https://picsum.photos/seed/htm-destination-yabelo/1000/640",
+    "experienceCount": 1,
+    "categories": ["wildlife-safari", "nature-outdoor"],
+    "rating": 4.4,
+    "reviewCount": 1550,
+    "price": 5000
+  },
+  {
+    "id": "assosa",
+    "name": "Assosa",
+    "region": "Benishangul-Gumuz",
+    "imageUrl": "https://picsum.photos/seed/htm-destination-assosa/1000/640",
+    "experienceCount": 1,
+    "categories": ["nature-outdoor", "cultural-heritage"],
+    "rating": 4.3,
+    "reviewCount": 1530,
+    "price": 3500
+  },
+  {
+    "id": "nekemte",
+    "name": "Nekemte",
+    "region": "Oromia",
+    "imageUrl": "https://picsum.photos/seed/htm-destination-nekemte/1000/640",
+    "experienceCount": 1,
+    "categories": ["cultural-heritage", "food-drink"],
+    "rating": 4.4,
+    "reviewCount": 1540,
+    "price": 2800
+  },
+  {
+    "id": "am bo",
+    "name": "Ambo",
+    "region": "Oromia",
+    "imageUrl": "https://picsum.photos/seed/htm-destination-ambo/1000/640",
+    "experienceCount": 2,
+    "categories": ["nature-outdoor", "wellness-relaxation"],
+    "rating": 4.5,
+    "reviewCount": 1560,
     "price": 3000
   }
 ]

@@ -8,26 +8,63 @@ import { useSearchContext } from "./SearchContext";
 
 const places: string[] = [
   "Addis Ababa",
-  "Bahir Dar",
-  "Gondar",
+  "Amhara",
   "Lalibela",
+  "Simien Mountains",
+  "Gondar",
+  "Danakil Depression",
+  "Bahir Dar",
   "Axum",
-  "Mekelle",
-  "Dire Dawa",
-  "Harar",
+  "Harar Jugol",
+  "Harari",
   "Hawassa",
+  "Sidama",
+  "Bale Mountains",
+  "Oromia",
+  "Awash National Park",
+  "Afar",
+  "Lower Omo Valley",
   "Arba Minch",
+  "Konso Cultural Landscape",
+  "South Ethiopia",
+  "Lake Tana",
+  "Debre Libanos",
+  "Tigray Rock-Hewn Churches",
+  "Tigray",
+  "Dire Dawa",
+  "Lake Ziway",
+  "Nechisar National Park",
+  "Yirgacheffe",
   "Jimma",
+  "Lake Langano",
+  "Mekelle",
   "Adama",
-  "Bishoftu",
-  "Debre Markos",
-  "Debre Birhan",
-  "Shashamane",
-  "Jijiga",
   "Gambella",
-  "Dessie",
-  "Wolaita Sodo",
-];
+  "Blue Nile Falls",
+  "Wenchi Crater Lake",
+  "Sof Omar Caves",
+  "Erta Ale",
+  "Tiya",
+  "Guassa Community Conservation Area",
+  "Babile Elephant Sanctuary",
+  "Abijatta-Shalla Lakes",
+  "Chebera Churchura National Park",
+  "Melka Kunture",
+  "Bishoftu",
+  "Debre Birhan",
+  "Dallol",
+  "Semera",
+  "Jinka",
+  "Turmi",
+  "Mago National Park",
+  "Yabelo",
+  "Assosa",
+  "Nekemte",
+  "Ambo",
+  "Benishangul-Gumuz",
+  "Central Ethiopia",
+  "Southwest Ethiopia"
+]
 
 const fuse = new Fuse(places, {
   threshold: 0.3,
@@ -35,11 +72,12 @@ const fuse = new Fuse(places, {
 
 
 
-export function SearchBar2({}){
+export function SearchBar2({className}:{className?: string | null}){
     const [open,setOpen] = useState<boolean>(false)
-    const {search,setSearch} = useSearchContext()
+    const {search,setSearch,appliedDateRange,setAppliedDateRange} = useSearchContext()
     const [selectedPlace, setSelectedPlace] = useState("");
     const containerRef = useRef<HTMLDivElement>(null);
+    
 
     const results = search.trim()
     ? fuse.search(search.trim()).map((result) => result.item)
@@ -48,6 +86,8 @@ export function SearchBar2({}){
 
     useEffect(() => {
         function handleOutsideClick(event: PointerEvent) {
+        
+
         if (
             containerRef.current &&
             !containerRef.current.contains(event.target as Node)
@@ -65,7 +105,7 @@ export function SearchBar2({}){
 
     return (
         <div ref={containerRef} className="flex-2 relative">
-            <div className="text-text-main flex items-center gap-2  max-sm:shadow-none shadow-outline p-3 sm:rounded-xl ">
+            <div className={`${className} text-text-main flex items-center gap-2  max-sm:shadow-none shadow-outline p-3 sm:rounded-xl `}>
                 <MapPinIcon className="w-3.5 h-auto shrink-0"/>
                 <input className={`outline-0 border-0 placeholder-text-main placeholder:font-light text-sm flex-1 
                                         w-full`} 
@@ -83,6 +123,7 @@ export function SearchBar2({}){
 
             <div className={`absolute z-100 top-full w-full flex flex-col rounded-xl border bg-white shadow-lg 
                              transition-all duration-300 ease-in-out mt-2 p-3
+                             overflow-auto h-100 
                              ${open ? "visible opacity-100 translate-y-0" : "invisible opacity-0 -translate-y-2 pointer-events-none"
                                 }`
                             }
@@ -91,8 +132,10 @@ export function SearchBar2({}){
                 {search ? 
                     results.length 
                         ? results.map((item,index: number)=>
-                            <div key={index} className="font-bold p-2 hover:bg-gray-200 transition-all duration-200 cursor-pointer"
+                            <div key={index} className={`font-bold p-2 hover:bg-gray-200 transition-all duration-200 cursor-pointer
+                                                          flex gap-5 `}
                                 onClick={()=>{setSearch(item); setSelectedPlace(item); setOpen(false)}}>
+                                <MapPinIcon />
                                 {item}
                             </div>) 
                         : <div>No Result</div> 

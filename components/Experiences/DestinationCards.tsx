@@ -20,16 +20,19 @@ export type Destination = {
 
 type Destinations = {
     destinations: Destination[];
+    className? : string;
 }
 
 
-export default function DestinationCards({destinations}:Destinations){
+export default function DestinationCards({destinations,className}:Destinations){
     const {likedCards,setLikedCards} = useSearchContext()
 
     return (
+        destinations.length
+        ?
         destinations.map(destination => (
-        <Card key={destination.id} className="w-60  shrink-0 pt-0 max-[570px]:w-full  ">
-            <div className="relative w-full h-40 max-sm:h-40 ">
+        <Card key={destination.id} className={`w-60 shadow-outline shrink-0 pt-0 max-[570px]:w-full ${className ? className : ""}`}>
+            <div className="relative w-full aspect-video ">
                 <Image 
                     fill
                     src={destination.imageUrl}
@@ -40,13 +43,11 @@ export default function DestinationCards({destinations}:Destinations){
                 <Heart 
                     size={30}
                     fill={likedCards.includes(destination.id) ? "orange":"none"}
-                    
-                    data-state={likedCards.includes(destination.id) ? "active":""}
                     onClick={()=>{
                         if (likedCards.includes(destination.id)){
                             setLikedCards((cards)=>cards.filter(card=>card != destination.id))
                         } else{
-                            console.log("yeyasd")
+                            
                             setLikedCards(cards => [...cards,destination.id])
                         }
                     }}
@@ -58,7 +59,7 @@ export default function DestinationCards({destinations}:Destinations){
             <CardContent className="flex flex-col gap-2 items-start">
                 
                 <Link className="text-sm text-text-main font-semibold" 
-                        href={`/experiences?destination=${destination.name}`}>{destination.name}</Link>
+                        href={`/experiences/${destination.name}`}>{destination.name}</Link>
                 <CardDescription className="flex gap-1 items-center text-text-main">
                     <MapPinIcon size={18} className="font-extrabold" />
                     <span className="opacity-75 tracking-tight text-xs">{destination.region}</span>
@@ -79,5 +80,9 @@ export default function DestinationCards({destinations}:Destinations){
         
         </Card>
         ))
+        :
+        <div className="w-full flex justify-center h-[90dvh] items-center max-[1000px]:w-fit max-[1000px]:h-fit">
+            <h1 className="text-5xl opacity-75 font-bold m-0">No Experience Found</h1>
+        </div>
     )
 }

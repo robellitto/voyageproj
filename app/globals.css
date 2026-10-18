@@ -112,6 +112,15 @@
     display: none;
   }
 }
+@utility responsive-grid {
+  @apply grid
+    max-[500px]:grid-cols-1
+    min-[500px]:max-[900px]:grid-cols-2
+    min-[900px]:max-[1400px]:grid-cols-3
+    min-[1400px]:max-[1800px]:grid-cols-4
+    min-[1800px]:grid-cols-5
+    gap-3;
+}
 
 @theme {
   --color-button-light: #FD7922;

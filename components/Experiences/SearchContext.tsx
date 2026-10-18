@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState } from "react";
 import destinations from "../Experiences/mockup.json"
+import { DateRange } from "react-day-picker";
 
 export type Destination = {
   id: string;
@@ -28,6 +29,17 @@ type SearchContextType = {
   setLanguage: (language: string| null) => void;
   filteredResults : Destination[] | null;
   setFilteredResult : (result: Destination[] | null) => void;
+  dateRange: DateRange  |  undefined;
+  setDateRange: (dateRange : DateRange  |  undefined)=> void;
+  appliedDateRange: DateRange  | undefined;
+  setAppliedDateRange: (appliedDateRange:DateRange |  undefined) => void;
+  guest: string | number | null;
+  setGuest: (guest : string | number | null) => void;
+  room: string  | number | null;
+  setRoom: (room: string | number | null) => void;
+  
+
+
   destinations : Destination[];
   
 
@@ -49,10 +61,25 @@ export function SearchContextProvider({
     const [search,setSearch] = useState<string >("")
     const [language,setLanguage] = useState<string | null>("amharic")
     const [filteredResults, setFilteredResult] = useState<Destination[] | null>(null)
+    const [dateRange, setDateRange] = useState<DateRange| undefined>();
+    const [appliedDateRange, setAppliedDateRange] = useState<DateRange | undefined>();
+    const [guest,setGuest] = useState<string|number|null>(1)
+    const [room, setRoom] = useState<string|number|null>(1)
+    
 
   return (
     <SearchContext.Provider
-      value={{ likedCards, setLikedCards, selected, setSelected, price, setPrice, search,setSearch,language,setLanguage, filteredResults,setFilteredResult, destinations}}
+      value={{  likedCards, setLikedCards, 
+                selected, setSelected, 
+                price, setPrice, 
+                search,setSearch,
+                language,setLanguage, 
+                filteredResults,setFilteredResult, 
+                dateRange,setDateRange,
+                appliedDateRange,setAppliedDateRange,
+                guest,setGuest,
+                room,setRoom,
+                destinations}}
     >
       {children}
     </SearchContext.Provider>

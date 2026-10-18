@@ -25,6 +25,7 @@ import {Card, CardContent} from "@/components/ui/card"
 
 type DateRangeDrawerProps = {
   selected: DateRange | undefined;
+  appliedDate: DateRange | undefined;
   onSelect: (range: DateRange | undefined) => void;
   onApply: () => void;
   className?: string | null;
@@ -32,6 +33,7 @@ type DateRangeDrawerProps = {
 
 export function DateRangeDrawer({
   selected,
+  appliedDate,
   onSelect,
   onApply,
   className
@@ -55,10 +57,10 @@ export function DateRangeDrawer({
           <div className="flex gap-2 items-center">
             <CalIcon className="font-bold" />
             
-                {selected?.from
-                ? selected.to
-                  ? `${format(selected.from, "MMM d, yyyy")} – ${format(selected.to, "MMM d, yyyy")}`
-                  : format(selected.from, "MMM d, yyyy")
+                {appliedDate?.from
+                ? appliedDate.to
+                  ? `${format(appliedDate.from, "MMM d, yyyy")} – ${format(appliedDate.to, "MMM d, yyyy")}`
+                  : format(appliedDate.from, "MMM d, yyyy")
                   : <div className="max-[1010px]:ml-4">Check in — <br className="hidden max-[1010px]:min-[960px]:block"/>Check out</div>}
           </div>
           </button>
@@ -111,19 +113,19 @@ export function DateRangeDrawer({
                       onSelect={onSelect}
                       max={20}
                       disabled={{ before: startOfDay(new Date()) }}
-                      showOutsideDays={false}
+                      showOutsideDays={false} 
                       hideNavigation
                       className="mx-auto w-full p-1"
                       classNames={{
                         day_button:
-                          "data-[selected-single=true]:!bg-orange-500 " +
-                          "data-[range-start=true]:!bg-orange-500 " +
-                          "data-[range-end=true]:!bg-orange-500 " +
-                          "data-[range-middle=true]:!bg-orange-200 " +
-                          "data-[selected-single=true]:!text-white " +
-                          "data-[range-start=true]:!text-white " +
-                          "data-[range-end=true]:!text-white " +
-                          "data-[range-middle=true]:!text-orange-950",
+                          `data-[selected-single=true]:!bg-orange-500 
+                          data-[range-start=true]:!bg-orange-500 
+                          data-[range-end=true]:!bg-orange-500 
+                          data-[range-middle=true]:!bg-orange-200 
+                          data-[selected-single=true]:!text-white 
+                          data-[range-start=true]:!text-white 
+                          data-[range-end=true]:!text-white 
+                          data-[range-middle=true]:!text-orange-900`
                       }}
                     />
                   </div>
