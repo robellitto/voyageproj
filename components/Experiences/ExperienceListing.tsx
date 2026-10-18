@@ -132,6 +132,9 @@ export default function ExperienceListing(){
       
       setSearchResults(results);
       query && setSpecificFilter(null)
+
+      return ()=> setSearchResults([])
+      
       
     }, [query]);
     
