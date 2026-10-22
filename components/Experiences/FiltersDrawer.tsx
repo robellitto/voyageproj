@@ -36,7 +36,7 @@ export default function FiltersDrawer({className}:{className?:string}){
                     </DrawerTitle>
                     <DrawerClose><X /></DrawerClose>
                 </DrawerHeader>
-                <ExperienceFilter selected={selected} price={price} setSelected={setSelected} setPrice={setPrice} language={language} setLanguage={setLanguage} className="overflow-auto"/>
+                <ExperienceFilter className="overflow-auto"/>
                 <div className="flex justify-between px-3">
                     <button className="flex gap-2 p-2 px-5 bg-text-header text-white justify-center rounded-sm"
                         onClick={()=>{

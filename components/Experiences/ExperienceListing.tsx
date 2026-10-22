@@ -152,7 +152,7 @@ export default function ExperienceListing(){
                       <button className="text-xs text-gray-700" onClick={()=> setFilteredResult(null) }>Clear all</button>
                   </div>   
 
-                  <ExperienceFilter selected={selected} setSelected={setSelected } price={price} setPrice={setPrice} language={language} setLanguage={setLanguage} className="overflow-auto pl-2"/>
+                  <ExperienceFilter className="overflow-auto pl-2"/>
                   
                   <button className="flex gap-2 p-2 bg-text-header text-white justify-center mt-auto rounded-sm"
                             onClick={()=>handleFilter(destinations,setFilteredResult,selected,price)}><SlidersHorizontal /> Apply filter</button>

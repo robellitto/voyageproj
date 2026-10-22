@@ -21,15 +21,10 @@ import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
 import { useState } from "react";
 import { Slider } from "../ui/slider";
 import { Select, SelectContent, SelectValue,SelectTrigger, SelectItem } from "../ui/select";
+import { useSearchContext } from "./SearchContext";
 
 type ExperienceFilterProps = {
     className?: string;
-    selected: string;
-    price: number[];
-    setSelected: (selected:string) => void;
-    setPrice: (price: number[]) => void;
-    language: string | null;
-    setLanguage: (language: string | null)=>void;
 }
 
 type ExperienceCategory = {
@@ -100,11 +95,11 @@ export const experienceCategories: ExperienceCategory[] = [
 
 
 
-export default function ExperienceFilter( {className, selected, setSelected, price, setPrice, language, setLanguage}: ExperienceFilterProps){
-    
+export default function ExperienceFilter( {className}: ExperienceFilterProps){
+    const {selected, setSelected, price, setPrice, language, setLanguage} = useSearchContext()
 
     return (
-        <Accordion multiple defaultValue={["category","location","pricing","duration","language"]} className={`${className}`}>
+        <Accordion multiple defaultValue={["category","location","pricing",,"language"]} className={`${className}`}>
             <AccordionItem value={"category"}>
                 <AccordionTrigger className="font-semibold flex gap-2  ">
                     <LayoutDashboard className="w-4 h-auto "/>Experience Categories
